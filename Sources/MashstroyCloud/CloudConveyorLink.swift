@@ -101,8 +101,8 @@ public final class CloudConveyorLink: ConveyorLink, FaultBackend, @unchecked Sen
 
     static func message(for error: Error, fallback: String) -> String {
         if let postgrest = error as? PostgrestError {
-            if postgrest.serverError?.code == "42501" { return "Недостаточно прав для этого действия" }
-            if let server = postgrest.serverError, !server.message.isEmpty { return server.message }
+            if postgrest.code == "42501" { return "Недостаточно прав для этого действия" }
+            if !postgrest.message.isEmpty { return postgrest.message }
         }
         return fallback
     }
