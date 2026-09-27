@@ -30,6 +30,20 @@ public struct MashstroyRootView: View {
         .environmentObject(session)
         .environmentObject(store)
         .tint(MashstroyTheme.primary)
+        .task { await session.restore() }
+        .task(id: sourceKey) {
+            guard session.user != nil else { return }
+            if session.mode == .cloud, let cloud = session.cloud {
+                await store.useCloud(cloud)
+            } else {
+                store.useDemo()
+            }
+        }
+    }
+
+    /// Меняется при входе, выходе и смене режима — тогда переключаем источник данных.
+    private var sourceKey: String {
+        "\(session.user?.email ?? "-")|\(session.mode == .cloud ? "cloud" : "demo")"
     }
 }
 
@@ -58,6 +72,7 @@ struct MainTabView: View {
 struct MoreView: View {
     let user: AppUser
     @EnvironmentObject private var session: AppSession
+    @EnvironmentObject private var store: ConveyorStore
     @State private var confirmDelete = false
 
     var body: some View {
@@ -74,7 +89,7 @@ struct MoreView: View {
                     NavigationLink { ModuleDetailView(module: module) } label: { ModuleRow(module: module) }
                 }
             }
-            if user.can(.simulateFaults) {
+            if user.can(.simulateFaults) && store.isDemo {
                 Section {
                     NavigationLink { SimulationView() } label: { Label("Симуляция неисправностей", systemImage: "wand.and.stars") }
                 } footer: {
@@ -93,7 +108,8 @@ struct MoreView: View {
                 LabeledContent("Пользователь", value: user.name)
                 LabeledContent("E-mail", value: user.email)
                 LabeledContent("Роль", value: user.role.title)
-                Button("Выйти") { session.signOut() }
+                LabeledContent("Режим", value: session.mode == .cloud ? "MASHSTROY Cloud" : "Демо (симулятор)")
+                Button("Выйти") { Task { await session.signOut() } }
                 Button("Удалить аккаунт", role: .destructive) { confirmDelete = true }
             } header: {
                 Text("Профиль")
@@ -110,7 +126,9 @@ struct MoreView: View {
             }
             Button("Отмена", role: .cancel) {}
         } message: {
-            Text("Аккаунт, имя и e-mail будут удалены без возможности восстановления. Записи в журналах аварий и команд останутся без привязки к вам.")
+            Text(session.mode == .cloud
+                 ? "Аккаунт, имя и e-mail будут удалены из MASHSTROY Cloud без возможности восстановления. Записи в журналах аварий и команд останутся без привязки к вам."
+                 : "Демо-аккаунт будет удалён с этого устройства.")
         }
     }
 }

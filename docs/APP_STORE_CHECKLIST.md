@@ -23,7 +23,7 @@
 | Демо-режим для ревьюера (Guideline 2.1: реальное оборудование ревьюеру недоступно) | симулятор + `docs/APP_REVIEW_NOTES.md` |
 | VoiceOver: подписи состояния, показателей, кнопок, камеры; системные шрифты с Dynamic Type | `Components.swift` и экраны |
 | Нет рекламы, трекинга, сторонней аналитики, ATT не нужен | — |
-| Ключи не в коде: адрес и anon key из `Config/Secrets.xcconfig` (в git не попадает) | `Config/`, `SupabaseConfig` |
+| Ключи не в коде: publishable key из `Config/Secrets.xcconfig` (в git не попадает) | `Config/`, `SupabaseConfig` |
 | Политика конфиденциальности, условия, поддержка (RU + EN) | `docs/privacy-policy.md`, `docs/terms.md`, `docs/support.md` |
 
 Sign in with Apple **не нужен**: вход по e-mail и паролю своей системы, без
@@ -60,7 +60,7 @@ Google/Facebook и других сторонних входов (Guideline 4.8).
       `kz.mashstroy.aicontrol` занят или не нравится — поменяйте
       (PRODUCT_BUNDLE_IDENTIFIER) и зарегистрируйте такой же в App Store Connect.
 - [ ] Для облака: скопируйте `Config/Secrets.example.xcconfig` →
-      `Config/Secrets.xcconfig`, впишите URL и anon key Supabase.
+      `Config/Secrets.xcconfig`, вставьте publishable key Supabase (URL уже в `Base.xcconfig`).
 - [ ] Прогоните тесты (⌘U), проверьте на реальном iPhone.
 - [ ] Product → Archive → Distribute App → App Store Connect → Upload.
 - [ ] Желательно заменить временную иконку на дизайнерскую (1024×1024 PNG,
@@ -123,5 +123,5 @@ App Store Connect → App Privacy → Get Started. Ответы, совпада�
 | 4.2 «минимальная функциональность» | 8 полноценных экранов, ИИ-диагностика, журнал аварий |
 | 5.1.1 политика конфиденциальности, удаление аккаунта | ссылки в приложении и в карточке, удаление в «Ещё» |
 | 1.4.1 физический вред | правила безопасности при первом запуске и в условиях |
-| Демо-вход принимает любой e-mail | в Review Notes прямо сказано, что это демо-режим; после подключения Supabase вход станет настоящим |
+| Демо-вход принимает любой e-mail | основной вход настоящий (Supabase Auth); демо-режим отдельной кнопкой, в Review Notes сказано, как в него попасть |
 | Бизнес-приложение только для своих сотрудников | если приложение не для широкой публики, рассмотрите Unlisted App или Apple Business Manager (Custom App) вместо публичного App Store |

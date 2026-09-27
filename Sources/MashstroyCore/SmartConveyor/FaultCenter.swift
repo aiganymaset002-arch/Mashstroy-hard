@@ -44,6 +44,12 @@ public struct FaultStatusChange: Hashable, Codable, Sendable {
     public var status: FaultStatus
     public var date: Date
     public var note: String
+
+    public init(status: FaultStatus, date: Date, note: String) {
+        self.status = status
+        self.date = date
+        self.note = note
+    }
 }
 
 public struct FaultRecord: Identifiable, Hashable, Sendable {
@@ -64,6 +70,33 @@ public struct FaultRecord: Identifiable, Hashable, Sendable {
     public internal(set) var log: [FaultStatusChange]
 
     public var isOpen: Bool { status != .resolved }
+
+    public init(id: String, kind: DiagnosisKind, component: MachineComponent, detectedAt: Date, title: String,
+                measured: String, normal: String, evidence: [String], aiDiagnosis: String, probability: Double,
+                risk: RiskLevel, action: String, status: FaultStatus, technicianNote: String,
+                log: [FaultStatusChange]) {
+        self.id = id
+        self.kind = kind
+        self.component = component
+        self.detectedAt = detectedAt
+        self.title = title
+        self.measured = measured
+        self.normal = normal
+        self.evidence = evidence
+        self.aiDiagnosis = aiDiagnosis
+        self.probability = probability
+        self.risk = risk
+        self.action = action
+        self.status = status
+        self.technicianNote = technicianNote
+        self.log = log
+    }
+}
+
+/// Облачное хранилище карточек аварий (реализует CloudConveyorLink).
+public protocol FaultBackend: AnyObject {
+    func loadFaults() async throws -> [FaultRecord]
+    func advanceFault(id: String, to status: FaultStatus, note: String) async throws
 }
 
 public enum FaultCenterError: LocalizedError, Equatable {
@@ -117,6 +150,15 @@ public struct FaultCenter: Hashable, Sendable {
             created.append(record)
         }
         return created
+    }
+
+    /// Проверяет переход без изменения данных (для облачной версии перед запросом).
+    public static func validateAdvance(of record: FaultRecord, note: String) throws -> FaultStatus {
+        guard let next = record.status.next else { throw FaultCenterError.alreadyResolved }
+        if next == .resolved && note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            throw FaultCenterError.noteRequired
+        }
+        return next
     }
 
     /// Переводит карточку на следующий шаг. Для «Устранено» нужна запись техника.

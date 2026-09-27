@@ -98,7 +98,7 @@ struct FaultDetailView: View {
                                   text: $note, axis: .vertical)
                             .lineLimit(2...5)
                         if let error { Text(error).font(.footnote).foregroundStyle(MashstroyTheme.critical) }
-                        Button(action) { advance(r) }
+                        Button(action) { Task { await advance(r) } }
                             .disabled(!user.can(.manageFaults))
                     } footer: {
                         Text(user.can(.manageFaults)
@@ -118,9 +118,9 @@ struct FaultDetailView: View {
         #endif
     }
 
-    private func advance(_ r: FaultRecord) {
+    private func advance(_ r: FaultRecord) async {
         do {
-            try store.advanceFault(id: r.id, note: note)
+            try await store.advanceFault(id: r.id, note: note)
             note = ""
             error = nil
         } catch {

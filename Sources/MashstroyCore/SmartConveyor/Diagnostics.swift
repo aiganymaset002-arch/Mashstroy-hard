@@ -33,6 +33,8 @@ public enum MachineComponent: String, CaseIterable, Identifiable, Codable, Senda
 public enum DiagnosisKind: String, CaseIterable, Codable, Sendable {
     case controllerOffline, protectionTrip, bearingDegradation, airChamberLeak
     case motorOverload, beltJam, motorOverheating, beltMisalignment, beltOverload
+    /// Карточка из облака с видом, неизвестным этой версии приложения.
+    case other
 }
 
 public struct Diagnosis: Identifiable, Hashable, Sendable {

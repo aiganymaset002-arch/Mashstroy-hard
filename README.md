@@ -70,14 +70,29 @@ mashstroy-hard/
 ## Облако (Supabase)
 
 Схема базы, роли через RLS и демо-данные лежат в [`supabase/`](supabase/README.md).
-Отдельный проект Supabase для MASHSTROY; ключи задаются в `supabase/.env`
-по образцу `.env.example` и в git не попадают.
+Отдельный проект Supabase для MASHSTROY (`qpiweupinpkfmiitrbut`). Адрес
+проекта записан в `Config/Base.xcconfig`, ключи в git не попадают.
+
+Как включить облако:
+1. Supabase → SQL Editor: выполнить по порядку файлы `supabase/migrations/`
+   (0100…0500), затем `supabase/seed.sql`.
+2. Скопировать `Config/Secrets.example.xcconfig` в `Config/Secrets.xcconfig`
+   и вставить publishable key (`sb_publishable_…`). Secret key в приложение
+   не кладётся никогда, приложение его отклонит.
+3. Запустить приложение, зарегистрироваться, затем в SQL Editor:
+   `select public.ms_bootstrap_owner('ваш@email', 'Ваше имя');`
+4. Для быстрых тестов можно выключить подтверждение e-mail
+   (Authentication → Sign In / Providers → Email → Confirm email).
+
+Без ключа приложение работает в демо-режиме на симуляторе. С ключом вход
+настоящий, машины, состояние, аварии и графики читаются из базы, команды
+пишутся в таблицу `commands` и ждут подтверждения ESP32.
 
 ## Подключение ESP32
 
 Приложение работает только через протокол `ConveyorLink`
-(`poll`, `send`, `history`). Для реальной установки нужен класс
-`CloudConveyorLink`, который ходит в MASHSTROY Cloud:
+(`poll`, `send`, `history`). Для реальной установки служит
+`CloudConveyorLink` (модуль MashstroyCloud), который ходит в MASHSTROY Cloud:
 
 ```
 Mobile App → MASHSTROY Cloud → Secure Gateway → ESP32 → Sensors / Actuators

@@ -30,6 +30,17 @@ public enum HistoryRange: String, CaseIterable, Identifiable, Sendable {
         }
     }
 
+    /// Интервал агрегации для графиков из облака.
+    public var bucket: String {
+        switch self {
+        case .live: return "1 second"
+        case .hour: return "1 minute"
+        case .day: return "15 minutes"
+        case .week: return "1 hour"
+        case .month: return "6 hours"
+        }
+    }
+
     public var pointCount: Int {
         switch self {
         case .live: return 120

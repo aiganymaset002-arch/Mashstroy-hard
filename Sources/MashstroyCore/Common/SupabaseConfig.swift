@@ -11,13 +11,17 @@ import Foundation
 
 public struct SupabaseConfig: Equatable, Sendable {
     public static let urlKey = "MASHSTROY_SUPABASE_URL"
+    /// Публичный ключ sb_publishable_… (Project Settings → API Keys).
+    public static let publishableKeyKey = "MASHSTROY_SUPABASE_PUBLISHABLE_KEY"
+    /// Старое имя для legacy anon-ключа, поддерживается для совместимости.
     public static let anonKeyKey = "MASHSTROY_SUPABASE_ANON_KEY"
 
     public let url: URL
+    /// Публичный ключ (publishable или legacy anon). Секретный ключ сюда не попадает.
     public let anonKey: String
 
     public init?(url: String?, anonKey: String?) {
-        guard let rawURL = Self.clean(url), let key = Self.clean(anonKey),
+        guard let rawURL = Self.clean(url), let key = Self.clean(anonKey), !key.hasPrefix("sb_secret_"),
               let parsed = URL(string: rawURL), parsed.scheme == "https", parsed.host != nil else {
             return nil
         }
@@ -31,7 +35,7 @@ public struct SupabaseConfig: Equatable, Sendable {
         func value(_ key: String) -> String? {
             clean(environment[key]) ?? clean(infoDictionary?[key] as? String)
         }
-        return SupabaseConfig(url: value(urlKey), anonKey: value(anonKeyKey))
+        return SupabaseConfig(url: value(urlKey), anonKey: value(publishableKeyKey) ?? value(anonKeyKey))
     }
 
     /// Пустые значения, заглушки и неподставленные переменные сборки считаются отсутствующими.

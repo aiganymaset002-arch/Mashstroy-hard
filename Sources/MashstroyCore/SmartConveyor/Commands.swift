@@ -48,9 +48,11 @@ public enum ConveyorCommand: Hashable, Sendable {
 
 public enum CommandResult: Hashable, Sendable {
     case accepted
+    /// Команда записана в облако и ждёт подтверждения ESP32.
+    case queued
     case rejected(String)
 
-    public var isAccepted: Bool { self == .accepted }
+    public var isAccepted: Bool { self == .accepted || self == .queued }
 }
 
 public enum ConveyorSafetyPolicy {

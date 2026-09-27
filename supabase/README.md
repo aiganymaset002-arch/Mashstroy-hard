@@ -70,8 +70,11 @@ machine_types ── mode_presets        ├─ commands (путь команд�
 
 ## Приложение
 
-Приложение пока работает на симуляторе. Для будущего подключения оно читает
-адрес и публичный ключ из переменных `MASHSTROY_SUPABASE_URL` и
-`MASHSTROY_SUPABASE_ANON_KEY` (Xcode → Edit Scheme → Run → Environment
-Variables) или из тех же ключей в Info.plist (`SupabaseConfig` в
-MashstroyCore). Секретный service role ключ в приложение не попадает никогда.
+Адрес проекта задан в `Config/Base.xcconfig`. Publishable key
+(`sb_publishable_…`) вставляется локально в `Config/Secrets.xcconfig`
+(образец `Config/Secrets.example.xcconfig`, файл в git не попадает) и
+через Info.plist доходит до `SupabaseConfig`. Переменные окружения схемы
+Xcode `MASHSTROY_SUPABASE_URL` и `MASHSTROY_SUPABASE_PUBLISHABLE_KEY`
+имеют приоритет. Secret key (`sb_secret_…`) в приложение не попадает
+никогда: `SupabaseConfig` его отклоняет. Без ключа приложение работает в
+демо-режиме на симуляторе.

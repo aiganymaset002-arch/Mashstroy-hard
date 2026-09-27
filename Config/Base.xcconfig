@@ -1,5 +1,8 @@
-// Общие настройки сборки приложения. Секреты подключаются из Secrets.xcconfig,
-// если он есть (необязательный include: без файла сборка тоже проходит).
-MASHSTROY_SUPABASE_URL =
-MASHSTROY_SUPABASE_ANON_KEY =
+// Общие настройки сборки приложения. Адрес проекта Supabase публичный и хранится здесь.
+// Публичный ключ sb_publishable_… кладётся локально в Config/Secrets.xcconfig
+// (необязательный include: без файла приложение работает в демо-режиме).
+// В xcconfig «//» начинает комментарий, поэтому адрес пишется через $(SLASH).
+SLASH = /
+MASHSTROY_SUPABASE_URL = https:$(SLASH)$(SLASH)qpiweupinpkfmiitrbut.supabase.co
+MASHSTROY_SUPABASE_PUBLISHABLE_KEY =
 #include? "Secrets.xcconfig"

@@ -283,52 +283,7 @@ public final class ConveyorSimulator: ConveyorLink {
     }
 
     private func modules(for t: ConveyorTelemetry) -> [HardwareModuleState] {
-        func f(_ v: Double, _ digits: Int = 1) -> String { String(format: "%.\(digits)f", v) }
-        func status(_ warn: Bool) -> LinkStatus { t.controllerOnline ? (warn ? .warning : .online) : .offline }
-        let risk = { (m: SensorMetric) in m.risk(in: t) > .low }
-
-        return HardwareModuleKind.allCases.map { (kind) -> HardwareModuleState in
-            switch kind {
-            case .motorController:
-                return .init(kind: kind, status: status(t.state.isLatched),
-                             readings: ["Состояние: \(t.state.rawValue)", "Задание: \(f(t.speedSetpoint)) м/с", "Направление: \(t.direction.title)"])
-            case .bts7960:
-                let pwm = min(100, t.beltSpeed / NominalProfile.speedRange.upperBound * 100)
-                return .init(kind: kind, status: status(risk(.current)),
-                             readings: ["ШИМ: \(Int(pwm))%", "Привод: \(t.driveEnabled ? "включён" : "отключён")"])
-            case .powerMonitor:
-                return .init(kind: kind, status: status(risk(.current) || risk(.voltage)),
-                             readings: ["\(f(t.voltage)) В", "\(f(t.current, 2)) А", "\(Int(t.power)) Вт"])
-            case .loadCell:
-                return .init(kind: kind, status: status(risk(.load)),
-                             readings: ["Масса: \(f(t.loadKg)) кг", "Загрузка: \(Int(t.loadPercent))%"])
-            case .imu:
-                return .init(kind: kind, status: status(risk(.vibration)),
-                             readings: ["Вибрация: \(f(t.vibration, 2)) мм/с"])
-            case .encoder:
-                return .init(kind: kind, status: status(false),
-                             readings: ["\(Int(t.motorRPM)) об/мин", "\(f(t.beltSpeed, 2)) м/с"])
-            case .pressureSensor:
-                return .init(kind: kind, status: status(risk(.airPressure)),
-                             readings: ["\(f(t.airPressure, 2)) кПа", "Подушка: \(t.airCushionOn ? "вкл" : "выкл")"])
-            case .temperatureSensors:
-                return .init(kind: kind, status: status(risk(.motorTemperature) || risk(.bearing1Temperature) || risk(.bearing2Temperature)),
-                             readings: ["Двигатель: \(Int(t.motorTemperature)) °C",
-                                        "Подшипник #1: \(Int(t.bearing1Temperature)) °C",
-                                        "Подшипник #2: \(Int(t.bearing2Temperature)) °C"])
-            case .limitSwitches:
-                return .init(kind: kind, status: status(false),
-                             readings: ["Защитная крышка: закрыта", "Концевики пресса: OK"])
-            case .camera:
-                return .init(kind: kind, status: status(false), readings: ["CAM-01 · 720p · 15 fps"])
-            case .fans:
-                let states = t.fans.enumerated().map { "№\($0.offset + 1): \($0.element ? "вкл" : "выкл")" }
-                return .init(kind: kind, status: status(t.fans.contains(false) || level(.fanFailure) > 0.3), readings: states)
-            case .pressActuator:
-                return .init(kind: kind, status: status(false),
-                             readings: ["Ход: \(Int(t.pressPosition))%", "Циклов: \(t.cycles)"])
-            }
-        }
+        HardwareModuleState.derive(from: t, coolingFault: level(.fanFailure) > 0.3)
     }
 
     private func visionEvents(for t: ConveyorTelemetry) -> [VisionEvent] {

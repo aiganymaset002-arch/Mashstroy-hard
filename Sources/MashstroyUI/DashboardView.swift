@@ -31,12 +31,48 @@ struct DashboardView: View {
                     camera(snap)
                 }
                 .padding()
+            } else if let error = store.linkError {
+                VStack(spacing: 12) {
+                    Image(systemName: "antenna.radiowaves.left.and.right.slash").font(.largeTitle).foregroundStyle(.secondary)
+                    Text(error).multilineTextAlignment(.center).foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity, minHeight: 300)
+                .padding()
             } else {
-                ProgressView("Подключение к ESP32…").frame(maxWidth: .infinity, minHeight: 300)
+                ProgressView(store.isLoadingMachines ? "Загружаем машины…" : "Подключение к ESP32…")
+                    .frame(maxWidth: .infinity, minHeight: 300)
             }
         }
         .background(Color.secondary.opacity(0.06))
         .navigationTitle("Smart Conveyor")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) { machinePicker }
+        }
+        .refreshable { await store.refresh() }
+    }
+
+    @ViewBuilder
+    private var machinePicker: some View {
+        if store.isDemo {
+            Badge(text: "ДЕМО", color: MashstroyTheme.accent)
+                .accessibilityLabel("Демо-режим на симуляторе")
+        } else if store.machines.count > 1 {
+            Menu {
+                ForEach(store.machines) { machine in
+                    Button {
+                        store.select(machine)
+                    } label: {
+                        if machine.id == store.selectedMachineID {
+                            Label(machine.title, systemImage: "checkmark")
+                        } else {
+                            Text(machine.title)
+                        }
+                    }
+                }
+            } label: {
+                Label("Машина", systemImage: "square.stack.3d.up")
+            }
+        }
     }
 
     private func header(_ snap: ConveyorSnapshot) -> some View {

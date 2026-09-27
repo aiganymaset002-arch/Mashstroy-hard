@@ -7,11 +7,19 @@ let package = Package(
     platforms: [.iOS(.v16), .macOS(.v13)],
     products: [
         .library(name: "MashstroyCore", targets: ["MashstroyCore"]),
+        .library(name: "MashstroyCloud", targets: ["MashstroyCloud"]),
         .library(name: "MashstroyUI", targets: ["MashstroyUI"])
+    ],
+    dependencies: [
+        .package(url: "https://github.com/supabase/supabase-swift.git", from: "2.55.0")
     ],
     targets: [
         .target(name: "MashstroyCore"),
-        .target(name: "MashstroyUI", dependencies: ["MashstroyCore"]),
+        .target(name: "MashstroyCloud", dependencies: [
+            "MashstroyCore",
+            .product(name: "Supabase", package: "supabase-swift")
+        ]),
+        .target(name: "MashstroyUI", dependencies: ["MashstroyCore", "MashstroyCloud"]),
         .testTarget(name: "MashstroyCoreTests", dependencies: ["MashstroyCore"])
     ]
 )

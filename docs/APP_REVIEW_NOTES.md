@@ -10,8 +10,10 @@ its sensors. All screens work in demo mode.
 
 How to review:
 1. Launch the app and accept the safety rules.
-2. Sign in with the demo account below (or any e-mail and a 6+ character
-   password), keep role "Engineer" (full access), accept the Terms.
+2. On the sign-in screen tap "Демо-режим на симуляторе", sign in with the
+   demo account below (or any e-mail and a 6+ character password), keep
+   role "Engineer" (full access), accept the Terms. (The main form above it
+   is the real MASHSTROY Cloud login for factory staff.)
 3. Tabs: Обзор (dashboard), Управление (control: Start/Stop/E-Stop, modes),
    ИИ (AI diagnostics), Аварии (fault center), Ещё (sensors, camera, charts).
 4. To see AI diagnostics and faults: Ещё → Симуляция неисправностей → turn on
