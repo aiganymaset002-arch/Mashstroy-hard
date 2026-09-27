@@ -27,8 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10000000000000000000004 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* PrivacyInfo.xcprivacy */; };
-		A10000000000000000000003 /* MashstroyUI in Frameworks */,
+				A10000000000000000000003 /* MashstroyUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,10 +66,7 @@
 		A40000000000000000000003 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A20000000000000000000004 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		A20000000000000000000005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A20000000000000000000006 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
-		A20000000000000000000003 /* MashstroyAIControl.app */,
+				A20000000000000000000003 /* MashstroyAIControl.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -288,7 +284,7 @@
 /* Begin XCLocalSwiftPackageReference section */
 		AA0000000000000000000001 /* XCLocalSwiftPackageReference ".." */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ..;
+			relativePath = "..";
 		};
 /* End XCLocalSwiftPackageReference section */
 
