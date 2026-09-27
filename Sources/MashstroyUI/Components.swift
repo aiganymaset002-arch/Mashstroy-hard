@@ -41,12 +41,17 @@ struct StateBadge: View {
         .padding(.horizontal, 10)
         .padding(.vertical, 5)
         .background(MashstroyTheme.color(for: state).opacity(0.15), in: Capsule())
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Состояние: \(state.title)")
     }
 }
 
 struct RiskBadge: View {
     let risk: RiskLevel
-    var body: some View { Badge(text: risk.title, color: MashstroyTheme.color(for: risk)) }
+    var body: some View {
+        Badge(text: risk.title, color: MashstroyTheme.color(for: risk))
+            .accessibilityLabel("Риск: \(risk.title)")
+    }
 }
 
 struct StatusDot: View {
@@ -56,6 +61,7 @@ struct StatusDot: View {
             Circle().fill(MashstroyTheme.color(for: status)).frame(width: 8, height: 8)
             Text(status.title).font(.caption).foregroundStyle(.secondary)
         }
+        .accessibilityElement(children: .combine)
     }
 }
 
@@ -79,6 +85,9 @@ struct MetricTile: View {
             }
         }
         .card()
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(title)
+        .accessibilityValue(risk > .low ? "\(value) \(unit), вне нормы" : "\(value) \(unit)")
     }
 }
 
@@ -88,6 +97,8 @@ struct HealthBar: View {
     var body: some View {
         ProgressView(value: Double(health), total: 100)
             .tint(MashstroyTheme.color(forHealth: health))
+            .accessibilityLabel("Здоровье узла")
+            .accessibilityValue("\(health) процентов")
     }
 }
 

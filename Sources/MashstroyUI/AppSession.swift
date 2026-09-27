@@ -33,5 +33,17 @@ public final class AppSession: ObservableObject {
     public func signOut() {
         user = nil
     }
+
+    /// Удаление аккаунта из приложения (App Store Review Guideline 5.1.1(v)).
+    public func deleteAccount() async {
+        guard let user else { return }
+        errorMessage = nil
+        do {
+            try await auth.deleteAccount(user)
+            self.user = nil
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
 }
 #endif

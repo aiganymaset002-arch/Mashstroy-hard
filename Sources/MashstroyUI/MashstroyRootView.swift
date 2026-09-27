@@ -13,12 +13,15 @@ import MashstroyCore
 public struct MashstroyRootView: View {
     @StateObject private var session = AppSession()
     @StateObject private var store = ConveyorStore()
+    @AppStorage("mashstroy.safetyAccepted.v1") private var safetyAccepted = false
 
     public init() {}
 
     public var body: some View {
         Group {
-            if let user = session.user {
+            if !safetyAccepted {
+                SafetyDisclaimerView { safetyAccepted = true }
+            } else if let user = session.user {
                 MainTabView(user: user)
             } else {
                 LoginView()
@@ -55,6 +58,7 @@ struct MainTabView: View {
 struct MoreView: View {
     let user: AppUser
     @EnvironmentObject private var session: AppSession
+    @State private var confirmDelete = false
 
     var body: some View {
         List {
@@ -77,13 +81,37 @@ struct MoreView: View {
                     Text("Работает только с симулятором, пока не подключён ESP32.")
                 }
             }
-            Section("Профиль") {
+            Section("О приложении") {
+                ForEach(LegalDocument.allCases) { doc in
+                    NavigationLink(doc.title) { LegalDocumentView(document: doc) }
+                }
+                Link(destination: AppLinks.support) { Label("Поддержка", systemImage: "questionmark.circle") }
+                Link(destination: AppLinks.supportMail) { Label(AppLinks.supportEmail, systemImage: "envelope") }
+                LabeledContent("Версия", value: AppLinks.versionString())
+            }
+            Section {
                 LabeledContent("Пользователь", value: user.name)
+                LabeledContent("E-mail", value: user.email)
                 LabeledContent("Роль", value: user.role.title)
-                Button("Выйти", role: .destructive) { session.signOut() }
+                Button("Выйти") { session.signOut() }
+                Button("Удалить аккаунт", role: .destructive) { confirmDelete = true }
+            } header: {
+                Text("Профиль")
+            } footer: {
+                if let error = session.errorMessage {
+                    Text(error).foregroundStyle(MashstroyTheme.critical)
+                }
             }
         }
         .navigationTitle("Ещё")
+        .confirmationDialog("Удалить аккаунт?", isPresented: $confirmDelete, titleVisibility: .visible) {
+            Button("Удалить аккаунт", role: .destructive) {
+                Task { await session.deleteAccount() }
+            }
+            Button("Отмена", role: .cancel) {}
+        } message: {
+            Text("Аккаунт, имя и e-mail будут удалены без возможности восстановления. Записи в журналах аварий и команд останутся без привязки к вам.")
+        }
     }
 }
 

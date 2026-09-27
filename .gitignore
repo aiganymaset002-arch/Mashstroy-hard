@@ -8,3 +8,5 @@ supabase/.env
 supabase/.temp/
 supabase/.branches/
 *.local.xcconfig
+Config/Secrets.xcconfig
+__pycache__/

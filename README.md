@@ -29,7 +29,8 @@
 
 1. Откройте `App/MashstroyAIControl.xcodeproj` в Xcode 15 или новее.
 2. Выберите схему **MashstroyAIControl** и симулятор iPhone, нажмите ▶︎ (⌘R).
-3. Войдите с любым e-mail и паролем от 6 символов, выберите роль.
+3. Примите правила безопасности, войдите с любым e-mail и паролем от 6 символов,
+   выберите роль и примите условия.
 4. Для запуска на своём iPhone: Signing & Capabilities → выберите свою Team.
 
 Тесты: `swift test` в корне репозитория (или ⌘U в Xcode).
@@ -58,6 +59,13 @@ mashstroy-hard/
 ├── Tests/MashstroyCoreTests/
 └── supabase/                     миграции, RLS, seed для MASHSTROY Cloud
 ```
+
+## Публикация в App Store
+
+Что уже готово в коде и что сделать вручную (аккаунт разработчика,
+карточка, скриншоты, ответы о конфиденциальности, данные для ревьюера) —
+в [`docs/APP_STORE_CHECKLIST.md`](docs/APP_STORE_CHECKLIST.md).
+Политика конфиденциальности и условия (RU + EN) — в `docs/`.
 
 ## Облако (Supabase)
 

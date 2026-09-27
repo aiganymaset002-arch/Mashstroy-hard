@@ -96,6 +96,9 @@ public enum AuthError: LocalizedError, Equatable {
 
 public protocol AuthService: Sendable {
     func signIn(email: String, password: String, role: UserRole) async throws -> AppUser
+    /// Удаляет аккаунт и связанные персональные данные (App Store Review Guideline 5.1.1(v)).
+    /// В облачной версии вызывает public.ms_delete_my_account().
+    func deleteAccount(_ user: AppUser) async throws
 }
 
 /// Демо-вход: проверяет формат данных, роль выбирается вручную.
@@ -109,4 +112,7 @@ public struct DemoAuthService: AuthService {
         guard password.count >= 6 else { throw AuthError.weakPassword }
         return AppUser(name: String(parts[0]), email: email, role: role)
     }
+
+    /// Демо-аккаунт живёт только в памяти устройства: удалять на сервере нечего.
+    public func deleteAccount(_ user: AppUser) async throws {}
 }

@@ -67,6 +67,8 @@ struct ControlView: View {
             .buttonStyle(.borderedProminent)
             .tint(MashstroyTheme.critical)
             .disabled(!user.can(.emergencyStop))
+            .accessibilityLabel("Аварийный стоп")
+            .accessibilityHint("Немедленно останавливает конвейер. Физическая кнопка на установке остаётся основной")
             .listRowInsets(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
         } footer: {
             Text("Основной аварийный стоп — физическая кнопка на установке. ESP32 сам останавливает конвейер при превышении тока, температуры, вибрации, заклинивании и открытой крышке, даже без связи.")
@@ -101,6 +103,7 @@ struct ControlView: View {
             .background(color.opacity(canControl ? 1 : 0.4), in: RoundedRectangle(cornerRadius: 10))
         }
         .disabled(!canControl)
+        .accessibilityLabel(title)
     }
 
     private func speedSection(_ t: ConveyorTelemetry) -> some View {

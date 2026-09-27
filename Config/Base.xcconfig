@@ -1,0 +1,5 @@
+// Общие настройки сборки приложения. Секреты подключаются из Secrets.xcconfig,
+// если он есть (необязательный include: без файла сборка тоже проходит).
+MASHSTROY_SUPABASE_URL =
+MASHSTROY_SUPABASE_ANON_KEY =
+#include? "Secrets.xcconfig"

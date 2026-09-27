@@ -12,6 +12,7 @@ struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var role: UserRole = .engineer
+    @State private var acceptedTerms = false
 
     var body: some View {
         NavigationStack {
@@ -45,6 +46,11 @@ struct LoginView: View {
                 } footer: {
                     Text("Демо-вход: данные никуда не отправляются. Роль выбирается вручную, пока нет сервера MASHSTROY Cloud.")
                 }
+                Section {
+                    Toggle("Я принимаю условия использования и политику конфиденциальности", isOn: $acceptedTerms)
+                    NavigationLink(LegalDocument.terms.title) { LegalDocumentView(document: .terms) }
+                    NavigationLink(LegalDocument.privacy.title) { LegalDocumentView(document: .privacy) }
+                }
                 if let error = session.errorMessage {
                     Section { Text(error).foregroundStyle(MashstroyTheme.critical) }
                 }
@@ -58,7 +64,7 @@ struct LoginView: View {
                             Spacer()
                         }
                     }
-                    .disabled(session.isSigningIn)
+                    .disabled(session.isSigningIn || !acceptedTerms)
                 }
             }
             .navigationTitle("Вход")

@@ -119,6 +119,10 @@ struct CameraFeedView: View {
                 }
             }
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityAddTraits(.isImage)
+        .accessibilityLabel("Изображение с камеры CAM-01")
+        .accessibilityValue(events.first.map { $0.message } ?? (telemetry.state.isMoving ? "Лента движется" : "Лента стоит"))
     }
 }
 #endif
