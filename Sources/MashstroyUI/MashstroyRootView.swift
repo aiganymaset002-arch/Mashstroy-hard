@@ -97,6 +97,8 @@ struct MoreView: View {
                 }
             }
             Section("О приложении") {
+                BrandLogo(maxHeight: 70)
+                    .listRowInsets(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                 ForEach(LegalDocument.allCases) { doc in
                     NavigationLink(doc.title) { LegalDocumentView(document: doc) }
                 }

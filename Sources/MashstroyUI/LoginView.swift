@@ -31,8 +31,8 @@ struct LoginView: View {
             Form {
                 Section {
                     VStack(alignment: .leading, spacing: 6) {
-                        Text("MASHSTROY").font(.largeTitle.bold()).foregroundStyle(MashstroyTheme.primary)
-                        Text("Industrial AI Control").font(.title3).foregroundStyle(MashstroyTheme.accent)
+                        BrandLogo(maxHeight: 110)
+                        Text("Industrial AI Control").font(.title3.bold()).foregroundStyle(MashstroyTheme.accent)
                     }
                     .padding(.vertical, 8)
                     .accessibilityElement(children: .combine)

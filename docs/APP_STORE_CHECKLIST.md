@@ -14,7 +14,7 @@
 | Сборка iOS 16+, только iPhone, версия 1.0.0 (1), bundle id `kz.mashstroy.aicontrol` | `App/MashstroyAIControl.xcodeproj` |
 | Манифест конфиденциальности (UserDefaults CA92.1, e-mail, имя, ID, контент, действия; без трекинга) — обязателен с мая 2024 | `App/MashstroyAIControl/PrivacyInfo.xcprivacy` |
 | Флаг экспорта шифрования `ITSAppUsesNonExemptEncryption = NO` (только HTTPS) | `App/MashstroyAIControl/Info.plist` |
-| Иконка 1024×1024 без прозрачности (временная, генерируется скриптом) | `Assets.xcassets/AppIcon`, `scripts/make_app_icon.py` |
+| Иконка 1024×1024 без прозрачности из эмблемы Asset МАШСТРОЙ | `Assets.xcassets/AppIcon`, `scripts/make_brand_assets.py` |
 | Экран запуска с логотипом | `Info.plist → UILaunchScreen`, `LaunchLogo`, `LaunchBackground` |
 | Удаление аккаунта в приложении (Guideline 5.1.1(v)) | «Ещё → Удалить аккаунт»; в облаке `ms_delete_my_account()` |
 | Согласие с условиями и политикой при входе, документы внутри приложения | `LoginView`, `LegalViews.swift` |
@@ -63,8 +63,9 @@ Google/Facebook и других сторонних входов (Guideline 4.8).
       `Config/Secrets.xcconfig`, вставьте publishable key Supabase (URL уже в `Base.xcconfig`).
 - [ ] Прогоните тесты (⌘U), проверьте на реальном iPhone.
 - [ ] Product → Archive → Distribute App → App Store Connect → Upload.
-- [ ] Желательно заменить временную иконку на дизайнерскую (1024×1024 PNG,
-      без прозрачности и скруглений).
+- [ ] Иконка сделана из логотипа 800×514, эмблема растянута примерно в 4 раза.
+      Для чёткости положите логотип в высоком разрешении в
+      `Branding/asset-mashstroy-logo.png` и запустите `scripts/make_brand_assets.py`.
 
 ### 4. Карточка в App Store Connect (https://appstoreconnect.apple.com)
 - [ ] My Apps → «+» → New App: платформа iOS, имя «MASHSTROY AI Control»
