@@ -42,38 +42,42 @@ public struct ModuleDescriptor: Identifiable, Hashable, Sendable {
 }
 
 public enum ModuleRegistry {
-    public static let all: [ModuleDescriptor] = [
-        ModuleDescriptor(
-            kind: .smartConveyor,
-            title: "Smart Conveyor",
-            summary: "Мониторинг конвейера: статус, скорость, загрузка, аварии и рекомендации ИИ",
-            systemImage: "shippingbox.and.arrow.backward",
-            availability: .active
-        ),
-        ModuleDescriptor(
-            kind: .waterTreatment,
-            title: "Очистка воды",
-            summary: "Контроль качества воды, фильтров и реагентов",
-            systemImage: "drop",
-            availability: .planned
-        ),
-        ModuleDescriptor(
-            kind: .sludgeRecycling,
-            title: "Переработка шлама",
-            summary: "Учёт шлама, режимы переработки и выход продукта",
-            systemImage: "arrow.3.trianglepath",
-            availability: .planned
-        ),
-        ModuleDescriptor(
-            kind: .labUnits,
-            title: "Лабораторные установки",
-            summary: "Эксперименты, пробы и протоколы испытаний",
-            systemImage: "flask",
-            availability: .planned
-        )
-    ]
+    public static let all: [ModuleDescriptor] = ModuleKind.allCases.map(descriptor(for:))
 
     public static func descriptor(for kind: ModuleKind) -> ModuleDescriptor {
-        all.first { $0.kind == kind }!
+        switch kind {
+        case .smartConveyor:
+            return ModuleDescriptor(
+                kind: kind,
+                title: "Smart Conveyor",
+                summary: "Мониторинг конвейера: статус, скорость, загрузка, аварии и рекомендации ИИ",
+                systemImage: "shippingbox.and.arrow.backward",
+                availability: .active
+            )
+        case .waterTreatment:
+            return ModuleDescriptor(
+                kind: kind,
+                title: "Очистка воды",
+                summary: "Контроль качества воды, фильтров и реагентов",
+                systemImage: "drop",
+                availability: .planned
+            )
+        case .sludgeRecycling:
+            return ModuleDescriptor(
+                kind: kind,
+                title: "Переработка шлама",
+                summary: "Учёт шлама, режимы переработки и выход продукта",
+                systemImage: "arrow.3.trianglepath",
+                availability: .planned
+            )
+        case .labUnits:
+            return ModuleDescriptor(
+                kind: kind,
+                title: "Лабораторные установки",
+                summary: "Эксперименты, пробы и протоколы испытаний",
+                systemImage: "flask",
+                availability: .planned
+            )
+        }
     }
 }

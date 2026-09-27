@@ -20,6 +20,7 @@
 
 ```
 mashstroy-hard/
+├── App/                          iOS-приложение (Xcode-проект)
 ├── Package.swift
 ├── Sources/
 │   ├── MashstroyCore/            логика без UI (тестируется)
@@ -33,23 +34,9 @@ mashstroy-hard/
 
 ## Как запустить
 
-1. Откройте `Package.swift` в Xcode 15+ и откройте превью
-   `MashstroyRootView.swift` или `SmartConveyorDashboardView.swift`.
-2. Для отдельного iOS-приложения: File → New → Project → App, затем
-   File → Add Package Dependencies → Add Local… → папка репозитория,
-   и в `App` укажите:
-
-```swift
-import SwiftUI
-import MashstroyUI
-
-@main
-struct MashstroyApp: App {
-    var body: some Scene {
-        WindowGroup { MashstroyRootView() }
-    }
-}
-```
+1. Откройте `App/MashstroyAIControl.xcodeproj` в Xcode 15 или новее.
+2. Выберите схему **MashstroyAIControl** и симулятор iPhone, нажмите ▶︎ (⌘R).
+3. Для запуска на своём iPhone: Signing & Capabilities → выберите свою Team.
 
 Тесты: `swift test` в корне репозитория (или ⌘U в Xcode).
 
