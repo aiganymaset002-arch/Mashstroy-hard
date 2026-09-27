@@ -43,7 +43,7 @@ mashstroy-hard/
 ├── Sources/
 │   ├── MashstroyCore/            логика без UI (покрыта тестами)
 │   │   ├── Auth/                 роли, права, вход
-│   │   ├── Common/               RiskLevel, генератор
+│   │   ├── Common/               RiskLevel, генератор, SupabaseConfig
 │   │   ├── Modules/              реестр модулей MASHSTROY
 │   │   └── SmartConveyor/
 │   │       ├── Telemetry         телеметрия, режимы, нормы
@@ -55,8 +55,15 @@ mashstroy-hard/
 │   │       ├── FaultCenter       карточки аварий
 │   │       └── History           периоды и статистика графиков
 │   └── MashstroyUI/              SwiftUI-экраны
-└── Tests/MashstroyCoreTests/
+├── Tests/MashstroyCoreTests/
+└── supabase/                     миграции, RLS, seed для MASHSTROY Cloud
 ```
+
+## Облако (Supabase)
+
+Схема базы, роли через RLS и демо-данные лежат в [`supabase/`](supabase/README.md).
+Отдельный проект Supabase для MASHSTROY; ключи задаются в `supabase/.env`
+по образцу `.env.example` и в git не попадают.
 
 ## Подключение ESP32
 

@@ -3,3 +3,8 @@
 Package.resolved
 .DS_Store
 xcuserdata/
+.env
+supabase/.env
+supabase/.temp/
+supabase/.branches/
+*.local.xcconfig

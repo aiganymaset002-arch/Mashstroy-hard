@@ -1,0 +1,10 @@
+# Настройки Supabase CLI для локального запуска (`supabase start`).
+# Ключи и адрес облачного проекта сюда не пишутся — см. .env.example.
+project_id = "mashstroy-hard"
+
+[db]
+major_version = 15
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]

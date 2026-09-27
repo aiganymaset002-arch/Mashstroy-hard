@@ -54,13 +54,14 @@ public enum UserRole: String, CaseIterable, Identifiable, Codable, Sendable {
         case .engineer:
             return [.controlMachine, .emergencyStop, .manageFaults, .viewDiagnostics, .viewHardware, .viewHistory, .simulateFaults]
         case .researcher:
+            // Research Mode с управлением стендом появится позже.
             return [.emergencyStop, .viewDiagnostics, .viewHardware, .viewHistory]
         case .technician:
             return [.emergencyStop, .manageFaults, .viewDiagnostics, .viewHardware, .viewHistory]
         case .client:
             return [.viewDiagnostics, .viewHistory]
         case .intern:
-            return [.emergencyStop, .viewHistory]
+            return [.viewDiagnostics, .viewHistory]
         case .viewer:
             return [.viewDiagnostics, .viewHardware, .viewHistory]
         }
