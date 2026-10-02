@@ -9,7 +9,9 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PROJECT="$ROOT/App/MashstroyAIControl.xcodeproj"
 SCHEME="MashstroyAIControl"
 BUNDLE_ID="kz.mashstroy.aicontrol"
-DERIVED="$ROOT/build/DerivedData"
+# Сборка вне папки проекта: Рабочий стол и Документы синхронизирует iCloud,
+# он ставит файлам атрибуты, и подпись падает с «resource fork … not allowed».
+DERIVED="$HOME/Library/Developer/Xcode/DerivedData/MashstroyAI"
 WANTED="${1:-}"
 
 command -v xcrun >/dev/null || { echo "Нужен Xcode (xcode-select --install не хватит, поставьте Xcode из App Store)"; exit 1; }
@@ -29,6 +31,8 @@ if [[ -z "$UDID" ]]; then
 fi
 open -a Simulator --args -CurrentDeviceUDID "$UDID" || true
 
+xattr -cr "$ROOT/App" "$ROOT/Sources" "$ROOT/Config" 2>/dev/null || true
+
 echo "Собираю приложение (первый раз скачивается supabase-swift, это несколько минут)…"
 xcodebuild \
   -project "$PROJECT" \
@@ -37,6 +41,7 @@ xcodebuild \
   -destination "id=$UDID" \
   -derivedDataPath "$DERIVED" \
   -quiet \
+  CODE_SIGNING_ALLOWED=NO \
   build
 
 APP="$DERIVED/Build/Products/Debug-iphonesimulator/MashstroyAIControl.app"
