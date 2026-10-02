@@ -9,7 +9,9 @@
 
 #if canImport(SwiftUI)
 import SwiftUI
+#if canImport(MashstroyCore)
 import MashstroyCore
+#endif
 
 struct LoginView: View {
     private enum Step: String, CaseIterable, Identifiable {

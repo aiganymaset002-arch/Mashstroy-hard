@@ -8,7 +8,9 @@
 
 #if canImport(SwiftUI)
 import SwiftUI
+#if canImport(MashstroyCore)
 import MashstroyCore
+#endif
 
 public struct MashstroyRootView: View {
     @StateObject private var session = AppSession()

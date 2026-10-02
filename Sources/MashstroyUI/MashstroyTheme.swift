@@ -5,7 +5,9 @@
 
 #if canImport(SwiftUI)
 import SwiftUI
+#if canImport(MashstroyCore)
 import MashstroyCore
+#endif
 
 enum MashstroyTheme {
     // Цвета логотипа Asset МАШСТРОЙ: тёмно-зелёный и фирменный зелёный.

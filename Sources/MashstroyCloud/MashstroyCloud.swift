@@ -8,7 +8,9 @@
 //
 
 import Foundation
+#if canImport(MashstroyCore)
 import MashstroyCore
+#endif
 import Supabase
 
 public enum CloudError: LocalizedError {

@@ -9,7 +9,9 @@
 
 #if canImport(SwiftUI)
 import SwiftUI
+#if canImport(MashstroyCore)
 import MashstroyCore
+#endif
 
 enum LegalDocument: String, Identifiable, CaseIterable {
     case safety, privacy, terms

@@ -1,0 +1,68 @@
+name: iOS build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  app:
+    name: App (iOS Simulator)
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select newest Xcode
+        run: |
+          XCODE="$(ls -d /Applications/Xcode*.app | grep -v -i beta | sort -V | tail -1)"
+          echo "Using $XCODE"
+          sudo xcode-select -s "$XCODE"
+          xcodebuild -version
+
+      - name: Build app for iOS Simulator
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project App/MashstroyAIControl.xcodeproj \
+            -scheme MashstroyAIControl \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Install and launch on a simulator
+        run: |
+          UDID="$(xcrun simctl list devices available | grep -E '^\s+iPhone' | head -1 | grep -oE '[0-9A-F-]{36}')"
+          echo "Simulator $UDID"
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl install "$UDID" build/DerivedData/Build/Products/Debug-iphonesimulator/MashstroyAIControl.app
+          xcrun simctl launch "$UDID" kz.mashstroy.aicontrol
+          sleep 10
+          xcrun simctl spawn "$UDID" launchctl list | grep -q kz.mashstroy.aicontrol && echo "App is running"
+          xcrun simctl io "$UDID" screenshot screenshot.png
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: simulator-screenshot
+          path: screenshot.png
+          if-no-files-found: ignore
+
+  tests:
+    name: Package tests
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select newest Xcode
+        run: sudo xcode-select -s "$(ls -d /Applications/Xcode*.app | grep -v -i beta | sort -V | tail -1)"
+      - name: swift test
+        run: swift test

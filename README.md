@@ -27,11 +27,22 @@
 
 ## Как запустить
 
-1. Откройте `App/MashstroyAIControl.xcodeproj` в Xcode 15 или новее.
-2. Выберите схему **MashstroyAIControl** и симулятор iPhone, нажмите ▶︎ (⌘R).
-3. Примите правила безопасности, войдите с любым e-mail и паролем от 6 символов,
-   выберите роль и примите условия.
+Одной командой (Xcode 16.3 или новее, лучше Xcode 26):
+
+```
+./scripts/run-simulator.sh
+```
+
+Скрипт соберёт приложение, включит симулятор iPhone и откроет в нём MASHSTROY AI.
+
+Через Xcode:
+1. Закройте другие окна Xcode с этой папкой (особенно открытый `Package.swift`).
+2. Откройте `App/MashstroyAIControl.xcodeproj`.
+3. Выберите схему **MashstroyAIControl** и симулятор iPhone, нажмите ▶︎ (⌘R).
 4. Для запуска на своём iPhone: Signing & Capabilities → выберите свою Team.
+
+Приложение компилирует папку `Sources/` напрямую, локальный пакет ему не нужен.
+Без `Config/Secrets.xcconfig` оно работает в демо-режиме на симуляторе.
 
 Тесты: `swift test` в корне репозитория (или ⌘U в Xcode).
 

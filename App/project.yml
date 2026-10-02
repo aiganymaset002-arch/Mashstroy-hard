@@ -1,7 +1,8 @@
 # Запасной способ получить Xcode-проект, если .xcodeproj не открывается:
 #   brew install xcodegen
 #   cd App && xcodegen generate
-# Создаст App/MashstroyAIControl.xcodeproj с теми же настройками.
+# Приложение компилирует папку ../Sources напрямую (без локального пакета),
+# supabase-swift подключается как обычный пакет из GitHub.
 name: MashstroyAIControl
 options:
   bundleIdPrefix: kz.mashstroy
@@ -9,8 +10,9 @@ options:
     iOS: "16.0"
   developmentLanguage: ru
 packages:
-  Mashstroy:
-    path: ..
+  Supabase:
+    url: https://github.com/supabase/supabase-swift.git
+    from: 2.55.0
 configFiles:
   Debug: ../Config/Base.xcconfig
   Release: ../Config/Base.xcconfig
@@ -20,9 +22,10 @@ targets:
     platform: iOS
     sources:
       - path: MashstroyAIControl
+      - path: ../Sources
     dependencies:
-      - package: Mashstroy
-        product: MashstroyUI
+      - package: Supabase
+        product: Supabase
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: kz.mashstroy.aicontrol

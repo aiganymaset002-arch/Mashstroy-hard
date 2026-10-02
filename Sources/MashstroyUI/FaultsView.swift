@@ -5,7 +5,9 @@
 
 #if canImport(SwiftUI)
 import SwiftUI
+#if canImport(MashstroyCore)
 import MashstroyCore
+#endif
 
 struct FaultsView: View {
     let user: AppUser

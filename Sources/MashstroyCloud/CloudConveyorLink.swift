@@ -9,7 +9,9 @@
 //
 
 import Foundation
+#if canImport(MashstroyCore)
 import MashstroyCore
+#endif
 import Supabase
 
 public final class CloudConveyorLink: ConveyorLink, FaultBackend, @unchecked Sendable {

@@ -8,7 +8,9 @@
 
 #if canImport(SwiftUI)
 import SwiftUI
+#if canImport(MashstroyCore)
 import MashstroyCore
+#endif
 
 struct ControlView: View {
     let user: AppUser

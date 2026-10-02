@@ -6,7 +6,9 @@
 #if canImport(SwiftUI)
 import SwiftUI
 import Charts
+#if canImport(MashstroyCore)
 import MashstroyCore
+#endif
 
 struct HistoryView: View {
     @EnvironmentObject private var store: ConveyorStore

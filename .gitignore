@@ -10,3 +10,4 @@ supabase/.branches/
 *.local.xcconfig
 Config/Secrets.xcconfig
 __pycache__/
+/build/

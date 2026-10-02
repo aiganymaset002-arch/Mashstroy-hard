@@ -3,14 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		A10000000000000000000001 /* MashstroyAIControlApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* MashstroyAIControlApp.swift */; };
 		A10000000000000000000002 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* Assets.xcassets */; };
 		A10000000000000000000004 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* PrivacyInfo.xcprivacy */; };
-		A10000000000000000000003 /* MashstroyUI in Frameworks */ = {isa = PBXBuildFile; productRef = AB0000000000000000000001 /* MashstroyUI */; };
+		A10000000000000000000003 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = AB0000000000000000000001 /* Supabase */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,12 +22,21 @@
 		A20000000000000000000003 /* MashstroyAIControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MashstroyAIControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		AC0000000000000000000001 /* Sources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			name = Sources;
+			path = ../Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		A30000000000000000000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10000000000000000000003 /* MashstroyUI in Frameworks */,
+				A10000000000000000000003 /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +47,7 @@
 			isa = PBXGroup;
 			children = (
 				A40000000000000000000002 /* MashstroyAIControl */,
+				AC0000000000000000000001 /* Sources */,
 				A40000000000000000000004 /* Config */,
 				A40000000000000000000003 /* Products */,
 			);
@@ -86,9 +96,12 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				AC0000000000000000000001 /* Sources */,
+			);
 			name = MashstroyAIControl;
 			packageProductDependencies = (
-				AB0000000000000000000001 /* MashstroyUI */,
+				AB0000000000000000000001 /* Supabase */,
 			);
 			productName = MashstroyAIControl;
 			productReference = A20000000000000000000003 /* MashstroyAIControl.app */;
@@ -101,17 +114,16 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					A50000000000000000000001 = {
-						CreatedOnToolsVersion = 15.0;
+						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
 			buildConfigurationList = A90000000000000000000001 /* Build configuration list for PBXProject "MashstroyAIControl" */;
-			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = ru;
+						developmentRegion = ru;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				ru,
@@ -120,7 +132,7 @@
 			);
 			mainGroup = A40000000000000000000001;
 			packageReferences = (
-				AA0000000000000000000001 /* XCLocalSwiftPackageReference ".." */,
+				AA0000000000000000000001 /* XCRemoteSwiftPackageReference "supabase-swift" */,
 			);
 			productRefGroup = A40000000000000000000003 /* Products */;
 			projectDirPath = "";
@@ -281,17 +293,22 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		AA0000000000000000000001 /* XCLocalSwiftPackageReference ".." */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "..";
+/* Begin XCRemoteSwiftPackageReference section */
+		AA0000000000000000000001 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.55.0;
+			};
 		};
-/* End XCLocalSwiftPackageReference section */
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AB0000000000000000000001 /* MashstroyUI */ = {
+		AB0000000000000000000001 /* Supabase */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = MashstroyUI;
+			package = AA0000000000000000000001 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

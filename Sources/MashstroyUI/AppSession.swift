@@ -8,8 +8,12 @@
 
 #if canImport(SwiftUI)
 import SwiftUI
+#if canImport(MashstroyCore)
 import MashstroyCore
+#endif
+#if canImport(MashstroyCloud)
 import MashstroyCloud
+#endif
 
 public enum AppMode: Equatable, Sendable {
     case demo
