@@ -6,7 +6,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PROJECT="$ROOT/App/MashstroyAIControl.xcodeproj"
+PROJECT="$ROOT/MashstroyAIControl.xcodeproj"
 SCHEME="MashstroyAIControl"
 BUNDLE_ID="kz.mashstroy.aicontrol"
 # Сборка вне папки проекта: Рабочий стол и Документы синхронизирует iCloud,

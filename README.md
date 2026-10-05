@@ -36,8 +36,11 @@
 Скрипт соберёт приложение, включит симулятор iPhone и откроет в нём MASHSTROY AI.
 
 Через Xcode:
-1. Закройте другие окна Xcode с этой папкой (особенно открытый `Package.swift`).
-2. Откройте `App/MashstroyAIControl.xcodeproj`.
+1. Закройте другие окна Xcode с этой папкой (особенно открытый `Package.swift`:
+   это только библиотека, из него приложение не запускается).
+2. Откройте **`MashstroyAIControl.xcodeproj`** в корне репозитория
+   (двойной клик в Finder или `open MashstroyAIControl.xcodeproj` в Терминале).
+   Это проект с iOS-таргетом приложения **MashstroyAIControl** (bundle id `kz.mashstroy.aicontrol`).
 3. Выберите схему **MashstroyAIControl** и симулятор iPhone, нажмите ▶︎ (⌘R).
 4. Для запуска на своём iPhone: Signing & Capabilities → выберите свою Team.
 
@@ -50,7 +53,9 @@
 
 ```
 mashstroy-hard/
-├── App/                          iOS-приложение (Xcode-проект)
+├── MashstroyAIControl.xcodeproj Xcode-проект: iOS-приложение (открывать его)
+├── project.yml                   то же самое для XcodeGen (запасной вариант)
+├── App/MashstroyAIControl/       точка входа, иконка, Info.plist, манифест приватности
 ├── Package.swift
 ├── Sources/
 │   ├── MashstroyCore/            логика без UI (покрыта тестами)
