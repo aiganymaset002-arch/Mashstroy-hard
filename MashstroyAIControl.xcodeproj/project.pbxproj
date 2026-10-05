@@ -26,7 +26,7 @@
 		AC0000000000000000000001 /* Sources */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			name = Sources;
-			path = ../Sources;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -61,7 +61,8 @@
 				A20000000000000000000004 /* PrivacyInfo.xcprivacy */,
 				A20000000000000000000005 /* Info.plist */,
 			);
-			path = MashstroyAIControl;
+			name = MashstroyAIControl;
+			path = App/MashstroyAIControl;
 			sourceTree = "<group>";
 		};
 		A40000000000000000000004 /* Config */ = {
@@ -70,7 +71,7 @@
 				A20000000000000000000006 /* Base.xcconfig */,
 			);
 			name = Config;
-			path = ../Config;
+			path = Config;
 			sourceTree = "<group>";
 		};
 		A40000000000000000000003 /* Products */ = {
@@ -123,7 +124,7 @@
 				};
 			};
 			buildConfigurationList = A90000000000000000000001 /* Build configuration list for PBXProject "MashstroyAIControl" */;
-						developmentRegion = ru;
+			developmentRegion = ru;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				ru,
@@ -223,7 +224,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "MASHSTROY AI";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_FILE = MashstroyAIControl/Info.plist;
+				INFOPLIST_FILE = App/MashstroyAIControl/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2026 MASHSTROY";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -253,7 +254,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "MASHSTROY AI";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_FILE = MashstroyAIControl/Info.plist;
+				INFOPLIST_FILE = App/MashstroyAIControl/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2026 MASHSTROY";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

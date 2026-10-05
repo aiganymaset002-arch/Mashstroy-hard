@@ -11,7 +11,7 @@
 
 | Требование | Где |
 |---|---|
-| Сборка iOS 16+, только iPhone, версия 1.0.0 (1), bundle id `kz.mashstroy.aicontrol` | `App/MashstroyAIControl.xcodeproj` |
+| Сборка iOS 16+, только iPhone, версия 1.0.0 (1), bundle id `kz.mashstroy.aicontrol` | `MashstroyAIControl.xcodeproj` |
 | Манифест конфиденциальности (UserDefaults CA92.1, e-mail, имя, ID, контент, действия; без трекинга) — обязателен с мая 2024 | `App/MashstroyAIControl/PrivacyInfo.xcprivacy` |
 | Флаг экспорта шифрования `ITSAppUsesNonExemptEncryption = NO` (только HTTPS) | `App/MashstroyAIControl/Info.plist` |
 | Иконка 1024×1024 без прозрачности из эмблемы Asset МАШСТРОЙ | `Assets.xcassets/AppIcon`, `scripts/make_brand_assets.py` |
