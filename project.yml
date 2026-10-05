@@ -1,7 +1,7 @@
 # Запасной способ получить Xcode-проект, если .xcodeproj не открывается:
 #   brew install xcodegen
 #   xcodegen generate   (в корне репозитория)
-# Приложение компилирует папку Sources напрямую (без локального пакета),
+# Приложение компилирует папку Packages/MashstroyKit/Sources напрямую (без локального пакета),
 # supabase-swift подключается как обычный пакет из GitHub.
 name: MashstroyAIControl
 options:
@@ -22,7 +22,7 @@ targets:
     platform: iOS
     sources:
       - path: App/MashstroyAIControl
-      - path: Sources
+      - path: Packages/MashstroyKit/Sources
     dependencies:
       - package: Supabase
         product: Supabase
