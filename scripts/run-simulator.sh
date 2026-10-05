@@ -31,7 +31,7 @@ if [[ -z "$UDID" ]]; then
 fi
 open -a Simulator --args -CurrentDeviceUDID "$UDID" || true
 
-xattr -cr "$ROOT/App" "$ROOT/Sources" "$ROOT/Config" 2>/dev/null || true
+xattr -cr "$ROOT/App" "$ROOT/Packages/MashstroyKit/Sources" "$ROOT/Config" 2>/dev/null || true
 
 echo "Собираю приложение (первый раз скачивается supabase-swift, это несколько минут)…"
 xcodebuild \

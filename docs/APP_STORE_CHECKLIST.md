@@ -40,7 +40,7 @@ Google/Facebook и других сторонних входов (Guideline 4.8).
       в **[скобках]**: юридическое название, БИН, адрес, регион серверов,
       срок хранения журналов.
 - [ ] Заведите ящик **support@mashstroy.kz** (или замените адрес в
-      `Sources/MashstroyCore/Common/AppLinks.swift` и в документах).
+      `Packages/MashstroyKit/Sources/MashstroyCore/Common/AppLinks.swift` и в документах).
 - [ ] Для продажи в ЕС: статус трейдера (DSA) в App Store Connect → Business.
 
 ### 2. Опубликовать документы по постоянным ссылкам

@@ -36,18 +36,19 @@
 Скрипт соберёт приложение, включит симулятор iPhone и откроет в нём MASHSTROY AI.
 
 Через Xcode:
-1. Закройте другие окна Xcode с этой папкой (особенно открытый `Package.swift`:
-   это только библиотека, из него приложение не запускается).
+1. Закройте все окна Xcode с этой папкой.
 2. Откройте **`MashstroyAIControl.xcodeproj`** в корне репозитория
    (двойной клик в Finder или `open MashstroyAIControl.xcodeproj` в Терминале).
+   Не открывайте саму папку через File → Open: тогда Xcode покажет просто файлы,
+   а Archive не соберёт приложение.
    Это проект с iOS-таргетом приложения **MashstroyAIControl** (bundle id `kz.mashstroy.aicontrol`).
 3. Выберите схему **MashstroyAIControl** и симулятор iPhone, нажмите ▶︎ (⌘R).
 4. Для запуска на своём iPhone: Signing & Capabilities → выберите свою Team.
 
-Приложение компилирует папку `Sources/` напрямую, локальный пакет ему не нужен.
+Приложение компилирует папку `Packages/MashstroyKit/Sources/` напрямую, локальный пакет ему не нужен.
 Без `Config/Secrets.xcconfig` оно работает в демо-режиме на симуляторе.
 
-Тесты: `swift test` в корне репозитория (или ⌘U в Xcode).
+Тесты: `swift test --package-path Packages/MashstroyKit`.
 
 ## Структура
 
@@ -56,23 +57,24 @@ mashstroy-hard/
 ├── MashstroyAIControl.xcodeproj Xcode-проект: iOS-приложение (открывать его)
 ├── project.yml                   то же самое для XcodeGen (запасной вариант)
 ├── App/MashstroyAIControl/       точка входа, иконка, Info.plist, манифест приватности
-├── Package.swift
-├── Sources/
-│   ├── MashstroyCore/            логика без UI (покрыта тестами)
-│   │   ├── Auth/                 роли, права, вход
-│   │   ├── Common/               RiskLevel, генератор, SupabaseConfig
-│   │   ├── Modules/              реестр модулей MASHSTROY
-│   │   └── SmartConveyor/
-│   │       ├── Telemetry         телеметрия, режимы, нормы
-│   │       ├── Commands          команды и ConveyorSafetyPolicy
-│   │       ├── Hardware, Vision  ESP32, модули, события камеры
-│   │       ├── ConveyorLink      граница приложение ↔ оборудование
-│   │       ├── ConveyorSimulator симулятор ESP32 и неисправностей
-│   │       ├── Diagnostics       ИИ-диагностика, здоровье, RUL
-│   │       ├── FaultCenter       карточки аварий
-│   │       └── History           периоды и статистика графиков
-│   └── MashstroyUI/              SwiftUI-экраны
-├── Tests/MashstroyCoreTests/
+├── Packages/MashstroyKit/        код приложения как Swift-пакет (для тестов)
+│   ├── Package.swift
+│   ├── Sources/
+│   │   ├── MashstroyCore/            логика без UI (покрыта тестами)
+│   │   │   ├── Auth/                 роли, права, вход
+│   │   │   ├── Common/               RiskLevel, генератор, SupabaseConfig
+│   │   │   ├── Modules/              реестр модулей MASHSTROY
+│   │   │   └── SmartConveyor/
+│   │   │       ├── Telemetry         телеметрия, режимы, нормы
+│   │   │       ├── Commands          команды и ConveyorSafetyPolicy
+│   │   │       ├── Hardware, Vision  ESP32, модули, события камеры
+│   │   │       ├── ConveyorLink      граница приложение ↔ оборудование
+│   │   │       ├── ConveyorSimulator симулятор ESP32 и неисправностей
+│   │   │       ├── Diagnostics       ИИ-диагностика, здоровье, RUL
+│   │   │       ├── FaultCenter       карточки аварий
+│   │   │       └── History           периоды и статистика графиков
+│   │   └── MashstroyUI/              SwiftUI-экраны
+│   └── Tests/MashstroyCoreTests/
 └── supabase/                     миграции, RLS, seed для MASHSTROY Cloud
 ```
 
@@ -131,5 +133,5 @@ ESP32. Локальные защиты (ток, температура, вибр
 ## Как добавить новый модуль
 
 1. Добавьте случай в `ModuleKind` и описание в `ModuleRegistry.descriptor(for:)`.
-2. Создайте папку `Sources/MashstroyCore/<Модуль>/` по образцу Smart Conveyor.
-3. Добавьте экраны в `Sources/MashstroyUI/`.
+2. Создайте папку `Packages/MashstroyKit/Sources/MashstroyCore/<Модуль>/` по образцу Smart Conveyor.
+3. Добавьте экраны в `Packages/MashstroyKit/Sources/MashstroyUI/`.

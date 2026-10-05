@@ -26,7 +26,7 @@
 		AC0000000000000000000001 /* Sources */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			name = Sources;
-			path = Sources;
+			path = Packages/MashstroyKit/Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
